@@ -6,7 +6,7 @@ import java.util.Date;
 // domain, DTO, Entity
 public class UsedGoods {
 	private int id;
-	private int intsellerId;
+	private int sellerId;
 	private String title;
 	private String description;
 	private int price;
@@ -20,11 +20,11 @@ public class UsedGoods {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIntsellerId() {
-		return intsellerId;
+	public int getSellerId() {
+		return sellerId;
 	}
-	public void setIntsellerId(int intsellerId) {
-		this.intsellerId = intsellerId;
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
 	}
 	public String getTitle() {
 		return title;
