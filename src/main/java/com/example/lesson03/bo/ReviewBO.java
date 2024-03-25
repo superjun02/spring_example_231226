@@ -11,7 +11,7 @@ public class ReviewBO {
 	@Autowired
 	private ReviewMapper reviewMapper;
 	
-	public Review getReview() {
-		return reviewMapper.selectReview();
+	public Review getReview(int id) {
+		return reviewMapper.selectReview(id);
 	}
 }
