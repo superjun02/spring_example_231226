@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.test.mapper.CompanyMapper">
+ 	<select id="seleCompanyList" resultType="com.example.test.domain.Company">
+ 		SELECT
+ 			`id`
+			,`name`
+			,`business`
+			,`scale`
+			,`headcount`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`company`
+ 	</select>
+ </mapper>
