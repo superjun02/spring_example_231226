@@ -10,8 +10,20 @@ import com.example.lesson03.mapper.ReviewMapper;
 public class ReviewBO {
 	@Autowired
 	private ReviewMapper reviewMapper;
-	
+
 	public Review getReview(int id) {
 		return reviewMapper.selectReview(id);
+	}
+
+	public int addReview(Review review) {
+		return reviewMapper.insertReview(review);
+	}
+
+	public int addReviewAsField(int storeId, String menu, String userName, Double point, String review) {
+		return reviewMapper.insertReviewAsField(storeId, menu, userName, point, review);
+	}
+
+	public int updateReviewById(int id, String review) {
+		return reviewMapper.updateReviewById(id, review);
 	}
 }
