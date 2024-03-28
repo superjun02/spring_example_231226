@@ -26,7 +26,6 @@ public class Lesson04Ex01Controller {
 		return "lesson04/addUser";
 	}
 	
-	//
 	@PostMapping("/add-user")
 	public String addUser(
 			@RequestParam(value = "name", required =  true) String name, 
