@@ -39,4 +39,12 @@
 			`id`
 		DESC LIMIT 1
 	</select>
+	<select id="isDuplicationByName" resultType="boolean" parameterType="string">
+		SELECT 
+			COUNT(*) 
+		FROM
+			`new_user`
+		WHERE
+			`name` = #{name}
+	</select>
 </mapper>

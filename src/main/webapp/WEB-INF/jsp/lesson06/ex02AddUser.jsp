@@ -25,10 +25,12 @@
 		<h1>회원가입</h1>
 		<div class="form-group">
 			<label for="name">이름</label> 
+			
 			<div class="d-flex">
 				<input type="text" id="name" name="name" class="form-control col-3">	
 				<button type="button" id="nameChkBtn" class="btn btn-warning">중복확인</button>			
 			</div>
+			
 			<small id="nameStatusArea" class="text-danger"></small>
 		</div>
 		<input type="button" id="joinBtn" value="회원가입" class="btn btn-info">
@@ -38,11 +40,47 @@
 		$(document).ready(function() {
 			// 중복확인 버튼 클릭
 			$('#nameChkBtn').on('click', function() {
+				// nameStatusArea 하위 태그들 초기화
+				$('#nameStatusArea').empty(); // 자식 태그들을 모두 비운다.
+				
 				let name = $("#name").val().trim();
 				
 				if (!name) {
-					alert("이름을 입력하세요");
+					$('#nameStatusArea').append('<span class="text-danger">이름이 비어있습니다.</span>');
 					return;
+				}
+				
+				// AJAX - 이름 중복 확인 DB에서
+				$.ajax({
+					// reqeust
+					type:"GET"
+					, url:"/lesson06/ex02/is-duplication-name"
+					, data:{"name":name}
+				
+					// response
+					, success:function(data) {
+						// {"code":200, "is_duplication":true}
+						
+						// 중복일 때 문구 노출
+						if (data.is_duplication) {
+							$('#nameStatusArea').append('<span class="text-danger">중복된 이름입니다.</span>');
+						}
+					}
+					, error:function(error) {
+						alert("이름 중복확인에 실패했습니다.");
+					}
+				});
+			});
+			
+			// 회원가입
+			$('#joinBtn').on('click', function() {
+				// nameStatusArea에 자식 태그가 아무것도 없다면 가입
+				console.log($('#nameStatusArea').children());
+				
+				if ($('#nameStatusArea').children().length < 1) {
+					alert("회원가입 진행");
+				} else {
+					alert("회원가입 불가");
 				}
 			});
 		});
