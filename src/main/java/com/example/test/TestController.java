@@ -21,7 +21,7 @@ public class TestController {
 	private CompanyBO companyBO;
 	
 	@RequestMapping("/hello")
-	public String helloWorld() {
+	public String helloWorld() {		
 		return "Hello World!";
 	}
 	
