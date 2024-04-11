@@ -1,6 +1,7 @@
 package com.example.lesson04.bo;
 
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class StudentBO {
 	
 	// JPA로 insert
 	public StudentEntity addStudent(String name, String phoneNumber, String email, String dreamJob) {
-		StudentEntity studentEntity = StudentEntity.builder()
+		StudentEntity student = StudentEntity.builder()
 				.name(name)
 				.phoneNumber(phoneNumber)
 				.email(email)
@@ -28,7 +29,23 @@ public class StudentBO {
 				.createdAt(ZonedDateTime.now())
 				.build();
 		
-		return studentRepository.save(studentEntity);
+		return studentRepository.save(student);
+	}
+	
+	// update
+	public StudentEntity updateDreamJobById(int id, String dreamJob) {
+		// 기존 데이터를 조회해온다.
+		StudentEntity student = studentRepository.findById(id).orElse(null);
+		
+		// 데이터의 값을 변경한다 => 엔티티에
+		if (student != null) {
+			student = student.toBuilder().dreamJob(dreamJob).build();
+			
+			student = studentRepository.save(student);
+		}
+		
+		// save(엔티티 객체) => id가 채워져있으므로 update
+		return student;
 	}
 	
 	// MyBatis로 insert
@@ -38,6 +55,18 @@ public class StudentBO {
 
 	public Student getStudentById(int id) {
 		return studentMapper.selectStudentById(id);
+	}
+
+	public void deleteStudentById(int id) {
+		// 방법1) 
+		StudentEntity student = studentRepository.findById(id).orElse(null);
+		if (student != null) {
+			studentRepository.delete(student);
+		}
+		
+		// 방법2)
+		Optional<StudentEntity> studentOptional = studentRepository.findById(id);
+		studentOptional.ifPresent(s -> studentRepository.delete(s));
 	}
 
 }
